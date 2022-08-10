@@ -39,11 +39,14 @@ function App() {
     client.current.subscribe('HACKEN');
     client.current.subscribe('BACKEN');
 
+    let i = 0;
+
     const noise = () => {
-      client.current.publish('WACKEN', Math.random().toString());
+      client.current.publish('WACKEN', i.toString());
+      i += 1;
       client.current.publish('HACKEN', Math.random().toString());
       client.current.publish('BACKEN', Math.random().toString());
-      setTimeout(noise, 1000);
+      setTimeout(noise, 10);
     }
     noise();
   }
@@ -69,7 +72,6 @@ function App() {
     client.current.publish(sendTopicInput, sendMessageInput);
     setTimeout(autoSend, 500);
   }
-  console.log(msg)
 
   return (
     <>
