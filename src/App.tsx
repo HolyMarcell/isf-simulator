@@ -53,7 +53,7 @@ function App() {
 
   useEffect(() => {
     client.current = connect((message) => {
-      setMsg(v => v.concat({...message, date: new Date().toLocaleTimeString()}));
+      setMsg(v => v.concat({...message, date: new Date().toLocaleTimeString()}).slice(40));
     });
     return () => client.current.disconnect();
   }, [])
@@ -70,7 +70,7 @@ function App() {
 
   const autoSend = () => {
     client.current.publish(sendTopicInput, sendMessageInput);
-    setTimeout(autoSend, 500);
+    setTimeout(autoSend, 5);
   }
 
   return (
