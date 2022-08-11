@@ -1,12 +1,14 @@
 import {ChakraProvider} from "@chakra-ui/react";
-import {AppCode} from "./AppCode";
 import {HomePage} from "./home/HomePage";
+import {MqttContextProvider} from "./MqttContext";
 
 
 export const App = () => {
   return (
     <ChakraProvider>
-      <HomePage />
+      <MqttContextProvider>
+        <HomePage/>
+      </MqttContextProvider>
     </ChakraProvider>
   )
 }

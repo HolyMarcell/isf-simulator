@@ -2,24 +2,7 @@ import {useEffect, useRef, useState} from 'react'
 import * as paho from 'paho-mqtt';
 
 
-const connect = (onMessage) => {
-  const client = new paho.Client('ws://localhost:15675/ws', 'REACTCLIENT2');
-  client.onConnected = () => {
-    console.log('Connected <3');
-  }
 
-  // const pub = () =>  {
-  //   client.publish('TOPIC', 'Hello world');
-  //   setTimeout(pub, 1000);
-  // }
-  // pub();
-
-  client.onMessageArrived = onMessage;
-
-  client.connect({userName: 'user', password: 'bitnami'});
-
-  return client;
-}
 
 
 export const  AppCode = () => {
@@ -50,12 +33,6 @@ export const  AppCode = () => {
     noise();
   }
 
-  useEffect(() => {
-    client.current = connect((message) => {
-      setMsg(v => v.concat({...message, date: new Date().toLocaleTimeString()}).slice(40));
-    });
-    return () => client.current.disconnect();
-  }, [])
 
   const subToTopic = () => {
     client.current.subscribe(subTopicInput);
@@ -131,7 +108,7 @@ export const  AppCode = () => {
                     .map((v, i) => (
                       <li key={i}>
                         <span style={{color: '#777', paddingRight: '5px'}}>{v.date}: </span>
-                      {v.payloadString}
+                        {v.payloadString}
                       </li>
                     ))}
                 </ul>

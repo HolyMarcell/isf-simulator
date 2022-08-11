@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Box, Button, Flex, Grid, Heading, Input} from "@chakra-ui/react";
+import {Box, Button, ButtonGroup, Flex, Grid, Heading, Input} from "@chakra-ui/react";
 import {lsRead, lsWrite} from "./util/localstorage";
 const localStorageKey = 'pa-labs.mqtt.connection';
 
@@ -53,9 +53,10 @@ export const ConnectionForm = () => {
           onChange={(e) => setPass(e.target.value)}
           placeholder={'Password'}/>
       </Grid>
-      <Flex mt={9}>
+      <ButtonGroup mt={9} gap={2}>
         <Button onClick={save}>Save Details</Button>
-      </Flex>
+        <Button onClick={restore}>Restore from saved</Button>
+      </ButtonGroup>
     </div>
   )
 }
