@@ -56,8 +56,11 @@ export const MqttContextProvider: React.FC<{ children: React.ReactElement }> = (
   }
 
   const subscribe = (topic) => {
-    client.current.subscribe(topic);
-    setTopics(v => v.concat(topic));
+    if (!topics.includes(topic)) {
+
+      client.current.subscribe(topic);
+      setTopics(v => v.concat(topic));
+    }
   }
 
   return (
@@ -68,7 +71,8 @@ export const MqttContextProvider: React.FC<{ children: React.ReactElement }> = (
       subscribe,
       connect,
       disconnect,
-      connected}}>
+      connected
+    }}>
       {children}
     </MqttContext.Provider>
   )

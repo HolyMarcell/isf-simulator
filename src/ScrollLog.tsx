@@ -51,7 +51,7 @@ export const ScrollLog = () => {
                     .map((v, i) => (
                       <li key={i}>
                         <span style={{color: '#777', paddingRight: '5px'}}>{v.date}: </span>
-                        {v.payloadString}
+                        <span>{v.payloadString.toString()}</span>
                       </li>
                     ))}
                 </ul>

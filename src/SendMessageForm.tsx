@@ -1,40 +1,20 @@
-import {useEffect, useRef, useState} from 'react'
+import {useState} from 'react'
 import {useMqttContext} from "./MqttContext";
-import {Box, Button, Grid, Input} from "@chakra-ui/react";
+import {Box, Grid, Input} from "@chakra-ui/react";
 import {IfCButton} from "./components/IfCButton";
-
-
-
 
 
 export const  SendMessageForm = () => {
 
-  const {subscribe, publish} = useMqttContext();
+  const {publish} = useMqttContext();
 
   const [sendTopicInput, setSendTopicInput] = useState('');
   const [sendMessageInput, setSendMessageInput] = useState('');
 
-  const generateNoise = () => {
-    subscribe('WACKEN');
-    subscribe('HACKEN');
-    subscribe('BACKEN');
-
-    let i = 0;
-
-    const noise = () => {
-      publish('WACKEN', i.toString());
-      i += 1;
-      publish('HACKEN', Math.random().toString());
-      publish('BACKEN', Math.random().toString());
-      setTimeout(noise, 10);
-    }
-    noise();
-  }
 
   const sendMessage = () => {
     publish(sendTopicInput, sendMessageInput);
   }
-
 
   return (
     <Box mt={'25px'}
@@ -58,7 +38,8 @@ export const  SendMessageForm = () => {
               onChange={(e) => setSendMessageInput(e.target.value)}/>
 
             <IfCButton onClick={() => sendMessage()}>Send</IfCButton>
-            <IfCButton colorScheme={'green'} onClick={generateNoise}>Generate Noise</IfCButton>
+
+
           </Grid>
 
       </Box>

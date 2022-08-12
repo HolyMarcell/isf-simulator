@@ -3,6 +3,7 @@ import {PageLayout} from "../components/layout";
 import {ScrollLog} from "../ScrollLog";
 import {SendMessageForm} from "../SendMessageForm";
 import {ConnectBar} from "../ConnectBar";
+import {Generators} from "../Generators";
 
 
 export const HomePage = () => {
@@ -13,6 +14,9 @@ export const HomePage = () => {
       <ConnectBar />
       <Box>
         <SendMessageForm />
+      </Box>
+      <Box>
+        <Generators />
       </Box>
       <Box>
         <ScrollLog />
