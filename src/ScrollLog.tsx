@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useMqttContext} from "./MqttContext";
 import {Box, Button, Grid, Input} from "@chakra-ui/react";
+import {IfCButton} from "./components/IfCButton";
 
 
 export const ScrollLog = () => {
@@ -9,7 +10,9 @@ export const ScrollLog = () => {
   const [subTopicInput, setSubTopicInput] = useState('');
 
   const subToTopic = () => {
-    subscribe(subTopicInput);
+    if(subTopicInput.length > 0) {
+      subscribe(subTopicInput);
+    }
     setSubTopicInput('');
   }
 
@@ -27,7 +30,7 @@ export const ScrollLog = () => {
             name={'subtop'}
             value={subTopicInput}
             onChange={(e) => setSubTopicInput(e.target.value)}/>
-          <Button onClick={subToTopic}>Subscribe</Button>
+          <IfCButton onClick={subToTopic}>Subscribe</IfCButton>
         </Grid>
       </Box>
 

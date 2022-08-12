@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react'
 import {useMqttContext} from "./MqttContext";
 import {Box, Button, Grid, Input} from "@chakra-ui/react";
+import {IfCButton} from "./components/IfCButton";
 
 
 
@@ -56,8 +57,8 @@ export const  SendMessageForm = () => {
               value={sendMessageInput}
               onChange={(e) => setSendMessageInput(e.target.value)}/>
 
-            <Button onClick={() => sendMessage()}>Send</Button>
-            <Button colorScheme={'green'} onClick={generateNoise}>Generate Noise</Button>
+            <IfCButton onClick={() => sendMessage()}>Send</IfCButton>
+            <IfCButton colorScheme={'green'} onClick={generateNoise}>Generate Noise</IfCButton>
           </Grid>
 
       </Box>
