@@ -1,45 +1,43 @@
-import { useState} from "react";
+import {useState} from "react";
 import {useMqttContext} from "./MqttContext";
+import {Box, Button, Grid, Input} from "@chakra-ui/react";
 
 
 export const ScrollLog = () => {
-  const {messages, subscribe} = useMqttContext();
+  const {messages, subscribe, topics} = useMqttContext();
 
   const [subTopicInput, setSubTopicInput] = useState('');
-  const [subedTopics, setSubedTopics] = useState([]);
-
-
 
   const subToTopic = () => {
     subscribe(subTopicInput);
-    setSubedTopics(v => v.concat(subTopicInput));
     setSubTopicInput('');
   }
 
 
   return (
     <>
-      <div>
+      <Box mt={'25px'}
+           pt={'25px'}
+           borderTop={'1px solid'}>
 
+        <Grid templateColumns={'100px 400px 100px'} gap={4}>
+          <Box display={'flex'} alignItems={'center'}>Subscribe</Box>
+          <Input
+            placeholder={'topic'}
+            name={'subtop'}
+            value={subTopicInput}
+            onChange={(e) => setSubTopicInput(e.target.value)}/>
+          <Button onClick={subToTopic}>Subscribe</Button>
+        </Grid>
+      </Box>
 
-        <div style={{display: 'flex'}}>
-          <label>
-            Subscribe to topic:
-            <input
-              style={{margin: '20px'}}
-              placeholder={'topic'}
-              name={'subtop'}
-              value={subTopicInput}
-              onChange={(e) => setSubTopicInput(e.target.value)}/>
-            <button onClick={subToTopic}>Subscribe</button>
-          </label>
-        </div>
-
-      </div>
-      <div style={{width: '100vw'}} >
+      <Box mt={'25px'}
+           pt={'25px'}
+           minWidth={'80vw'}
+           borderTop={'1px solid'}>
 
         <div style={{display: 'flex', paddingTop: '130px', flex: '1'}}>
-          {subedTopics.map((subedTopic) => {
+          {topics.map((subedTopic) => {
             return (
               <div key={subedTopic} style={{flex: '1'}}>
                 <h3>{subedTopic}</h3>
@@ -58,7 +56,7 @@ export const ScrollLog = () => {
             )
           })}
         </div>
-      </div>
+      </Box>
     </>
   )
 }

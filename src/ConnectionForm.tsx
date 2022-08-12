@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Box, Button, ButtonGroup, Flex, Grid, Heading, Input} from "@chakra-ui/react";
 import {lsRead, lsWrite} from "./util/localstorage";
+import {useMqttContext} from "./MqttContext";
 const localStorageKey = 'pa-labs.mqtt.connection';
 
 export interface SavedDetails {
@@ -10,7 +11,7 @@ export interface SavedDetails {
 }
 
 export const ConnectionForm = () => {
-
+  const {connect} = useMqttContext();
   const saved = lsRead<SavedDetails>(localStorageKey);
 
   const [url, setUrl] = useState<string>(saved?.url || '');
@@ -31,6 +32,10 @@ export const ConnectionForm = () => {
     setUrl(url);
     setPass(pass);
     setUser(user);
+  }
+
+  const handleConnect = () => {
+    connect(url, user, pass)
   }
 
 
@@ -56,6 +61,7 @@ export const ConnectionForm = () => {
       <ButtonGroup mt={9} gap={2}>
         <Button onClick={save}>Save Details</Button>
         <Button onClick={restore}>Restore from saved</Button>
+        <Button colorScheme={'blue'} onClick={handleConnect}>Connect to Broker</Button>
       </ButtonGroup>
     </div>
   )
