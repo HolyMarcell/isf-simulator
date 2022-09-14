@@ -44,6 +44,10 @@ export const ScrollLog = () => {
             return (
               <div key={subedTopic} style={{flex: '1'}}>
                 <h3>{subedTopic}</h3>
+                <button onClick={() => console.log(messages
+                  .filter(({topic}) => topic === subedTopic)
+                  .reverse()
+                  .map((v) => JSON.parse(v.payloadString.toString())))}>log topic</button>
                 <ul>
                   {messages
                     .filter(({topic}) => topic === subedTopic)
