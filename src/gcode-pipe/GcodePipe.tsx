@@ -47,7 +47,7 @@ export const GcodePipe = () => {
       randomizeStart: formState['randomizeStart']
     });
 
-    setCopyGCode(gcode.join('\n'));
+    setCopyGCode(gcode.join('\r\n'));
 
   }, [formState])
 
