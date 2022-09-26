@@ -1,26 +1,10 @@
-import {Box} from "@chakra-ui/react";
-import {PageLayout} from "../components/layout";
-import {ScrollLog} from "../ScrollLog";
-import {SendMessageForm} from "../SendMessageForm";
-import {ConnectBar} from "../ConnectBar";
-import {Generators} from "../Generators";
-
+import { PageLayout } from '../components/layout';
 
 export const HomePage = () => {
-
-
   return (
     <PageLayout>
-      <ConnectBar />
-      <Box>
-        <SendMessageForm />
-      </Box>
-      <Box>
-        <Generators />
-      </Box>
-      <Box>
-        <ScrollLog />
-      </Box>
+      <h2>Welcome home!</h2>
+      <p>This is something we found helpful.</p>
     </PageLayout>
   )
 }

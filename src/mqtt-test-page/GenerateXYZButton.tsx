@@ -1,13 +1,12 @@
 import {useMqttContext} from "./MqttContext";
 import {useRef, useState} from "react";
-import {IfCButton} from "./components/IfCButton";
+import {IfCButton} from "../components/IfCButton";
 import {channels} from "./channels";
 
 
 export const GenerateXYZButton = () => {
-  const {messages,subscribe, publish} = useMqttContext();
-  // console.log(messages)
-  const timeoutTracker = useRef();
+  const {messages, subscribe, publish} = useMqttContext();
+  const timeoutTracker = useRef<number>();
 
   const [isOn, setIsOn] = useState(false);
 

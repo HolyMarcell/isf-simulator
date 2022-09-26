@@ -1,9 +1,8 @@
-import {useState} from "react";
+import { useState } from 'react';
 import {
   Box,
   Button,
   ButtonGroup,
-  Flex,
   Grid,
   Heading,
   Input,
@@ -11,9 +10,9 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay
-} from "@chakra-ui/react";
-import {lsRead, lsWrite} from "./util/localstorage";
-import {localStorageKey, useMqttContext} from "./MqttContext";
+} from '@chakra-ui/react';
+import { lsRead, lsWrite } from '../util/localstorage';
+import { localStorageKey, useMqttContext } from './MqttContext';
 
 
 export interface SavedDetails {

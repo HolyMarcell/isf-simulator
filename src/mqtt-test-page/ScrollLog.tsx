@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {useMqttContext} from "./MqttContext";
-import {Box, Button, Grid, Input} from "@chakra-ui/react";
-import {IfCButton} from "./components/IfCButton";
+import { useState } from 'react';
+import { useMqttContext } from './MqttContext';
+import { Box, Grid, Input } from '@chakra-ui/react';
+import { IfCButton } from '../components/IfCButton';
 
 
 export const ScrollLog = () => {
@@ -10,7 +10,7 @@ export const ScrollLog = () => {
   const [subTopicInput, setSubTopicInput] = useState('');
 
   const subToTopic = () => {
-    if(subTopicInput.length > 0) {
+    if (subTopicInput.length > 0) {
       subscribe(subTopicInput);
     }
     setSubTopicInput('');
@@ -47,7 +47,8 @@ export const ScrollLog = () => {
                 <button onClick={() => console.log(messages
                   .filter(({topic}) => topic === subedTopic)
                   .reverse()
-                  .map((v) => JSON.parse(v.payloadString.toString())))}>log topic</button>
+                  .map((v) => JSON.parse(v.payloadString.toString())))}>log topic
+                </button>
                 <ul>
                   {messages
                     .filter(({topic}) => topic === subedTopic)

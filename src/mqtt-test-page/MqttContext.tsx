@@ -2,11 +2,31 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import * as paho from "paho-mqtt";
 
 
-const MqttContext = React.createContext({});
+const MqttContext = React.createContext<MqttContextApi>({
+  messages: [],
+  topics: [],
+  subscribe: () => {},
+  publish: () => {},
+  connect: () => {},
+  disconnect: () => {},
+  connected: false
+});
+
+
+interface MqttContextApi {
+  messages: string[];
+  topics: string[];
+  subscribe: (topic: string) => void;
+  publish: (topic: string, message: string) => void;
+  connect: ({url, user, pass}: {url: string, user: string, pass: string}) => void,
+  disconnect: () => void,
+  connected: boolean
+}
 
 
 const mqtt_connect = ({onMessage, onConnected, onDisconnected, url, user, pass}) => {
   const client = new paho.Client(url, 'ISF-Simulator-Client');
+  // @ts-ignore
   client.onConnected = () => {
     console.log('Connected <3');
     onConnected();
@@ -27,14 +47,14 @@ export const useMqttContext = () => {
 export const localStorageKey = 'pa-labs.mqtt.connection';
 export const MqttContextProvider: React.FC<{ children: React.ReactElement }> = ({children}) => {
   const [msg, setMsg] = useState([]);
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState<string[]>([]);
   const [connected, setConnected] = useState(false);
 
   const onMessage = (message) => {
     setMsg(v => v.concat({...message, date: new Date().toLocaleTimeString()}).slice(-40));
   }
 
-  const client = useRef();
+  const client = useRef<any>();
 
   const connect = ({url, user, pass}) => {
     const onConnected = () => setConnected(true);

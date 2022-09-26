@@ -1,12 +1,12 @@
 import {useMqttContext} from "./MqttContext";
 import {useRef, useState} from "react";
-import {IfCButton} from "./components/IfCButton";
+import {IfCButton} from "../components/IfCButton";
 
 
 export const GenerateNoiseButton = () => {
   const {subscribe, publish} = useMqttContext();
 
-  const noiseTo = useRef();
+  const noiseTo = useRef<number>();
 
   const [isNoise, setIsNoise] = useState(false);
 

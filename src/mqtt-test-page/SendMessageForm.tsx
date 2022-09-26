@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {useMqttContext} from "./MqttContext";
 import {Box, Grid, Input} from "@chakra-ui/react";
-import {IfCButton} from "./components/IfCButton";
+import {IfCButton} from "../components/IfCButton";
 
 
 export const  SendMessageForm = () => {
@@ -45,4 +45,3 @@ export const  SendMessageForm = () => {
       </Box>
   )
 }
-

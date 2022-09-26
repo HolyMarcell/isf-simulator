@@ -1,6 +1,6 @@
 import {Box, Button, ButtonGroup} from "@chakra-ui/react";
 import {localStorageKey, useMqttContext} from "./MqttContext";
-import {lsRead} from "./util/localstorage";
+import {lsRead} from "../util/localstorage";
 import {ConnectionForm, SavedDetails} from "./ConnectionForm";
 
 
@@ -15,11 +15,11 @@ export const ConnectBar = () => {
 
   return (
     <Box
-      position={'fixed'}
+      position={'relative'}
       top={0}
       left={0}
       bgColor={connected ? 'green.200' : 'red.200'}
-      width={'100vw'}
+      width={'80vw'}
       height={'60px'}
       display={'flex'}
       alignItems={'center'}
