@@ -146,7 +146,7 @@ export const generator = ({
       command: "G1",
       X: genPoints[0].x,
       Y: genPoints[0].y,
-      E: genPoints[9].e + acc_e,
+      E: genPoints[0].e + acc_e,
     });
   }
 
