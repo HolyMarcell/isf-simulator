@@ -61,7 +61,7 @@ const randomizeStartPoint = (points: GenPoint[]): GenPoint[] => {
 const gstruct_to_gcode = (gstruct: GStruct[]): string[] => {
   return gstruct.map(({comment = '', command = '', ...rest}) => {
     const r = Object.keys(rest).reduce((acc, curr) => {
-      return `${acc} ${curr}${rest[curr]}`
+      return `${acc} ${curr}${rest[curr].toFixed(5)}`
     }, '')
     return `${command}${r} ${comment !== '' ? ';' : ''}${comment}`
   });
@@ -140,8 +140,14 @@ export const generator = ({
         Y: genPoints[i].y,
         E: acc_e,
       });
-
     }
+
+    gcode.push({
+      command: "G1",
+      X: genPoints[0].x,
+      Y: genPoints[0].y,
+      E: genPoints[9].e + acc_e,
+    });
   }
 
 

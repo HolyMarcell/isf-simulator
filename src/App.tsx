@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router';
 import { BrowserRouter, Link } from 'react-router-dom';
 import { HomePage } from './home/HomePage';
 import { GcodePipe } from './gcode-pipe/GcodePipe';
+import { theme } from './theme';
 
 
 const Nav = ({children}) => {
@@ -32,7 +33,7 @@ const Nav = ({children}) => {
 
 export const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <BrowserRouter >
         <Routes>
           <Route path={'/'} element={<Nav><HomePage /></Nav>} />
