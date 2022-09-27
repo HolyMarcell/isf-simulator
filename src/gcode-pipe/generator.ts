@@ -63,7 +63,7 @@ const gstruct_to_gcode = (gstruct: GStruct[]): string[] => {
     const r = Object.keys(rest).reduce((acc, curr) => {
       return `${acc} ${curr}${rest[curr].toFixed(5)}`
     }, '')
-    return `${command}${r} ${comment !== '' ? ';' : ''}${comment}`
+    return `${command}${r} ${comment !== '' ? ';' : ''}${comment}`.trim()
   });
 }
 
@@ -72,7 +72,7 @@ export const generator = ({
   segments = 6,
   layers = 3,
   layerHeight = 1,
-  randomizeStart = true
+  randomizeStart = true,
 }) => {
 
   const radius = 0.5 * diameter;
@@ -93,6 +93,7 @@ export const generator = ({
     gcode.push({
       comment: "LAYER:" + layer
     });
+
 
     gcode.push({
       command: "G92", // Reset E- and F-Value, start counting at E0
