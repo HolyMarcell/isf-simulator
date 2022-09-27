@@ -34,7 +34,7 @@ const Nav = ({children}) => {
 export const App = () => {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename={'/isf-simulator/'} >
+      <BrowserRouter basename={'/isf-simulator'} >
         <Routes>
           <Route path={''} element={<Nav><HomePage /></Nav>} />
           <Route path={'/mqtt'} element={<Nav><MqttTestPage/></Nav>} />
