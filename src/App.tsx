@@ -36,7 +36,7 @@ export const App = () => {
     <ChakraProvider theme={theme}>
       <BrowserRouter basename={'/isf-simulator/'} >
         <Routes>
-          <Route path={'/'} element={<Nav><HomePage /></Nav>} />
+          <Route path={''} element={<Nav><HomePage /></Nav>} />
           <Route path={'/mqtt'} element={<Nav><MqttTestPage/></Nav>} />
           <Route path={'/gcode-pipe'} element={<Nav><GcodePipe/></Nav>} />
         </Routes>
