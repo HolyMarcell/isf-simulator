@@ -1,7 +1,7 @@
 import { Box, ChakraProvider } from '@chakra-ui/react';
 import { MqttTestPage } from "./mqtt-test-page/MqttTestPage";
 import { Route, Routes } from 'react-router';
-import { BrowserRouter, Link } from 'react-router-dom';
+import {  HashRouter, Link } from 'react-router-dom';
 import { HomePage } from './home/HomePage';
 import { GcodePipe } from './gcode-pipe/GcodePipe';
 import { theme } from './theme';
@@ -34,13 +34,13 @@ const Nav = ({children}) => {
 export const App = () => {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename={'/isf-simulator'} >
+      <HashRouter >
         <Routes>
           <Route path={''} element={<Nav><HomePage /></Nav>} />
           <Route path={'/mqtt'} element={<Nav><MqttTestPage/></Nav>} />
           <Route path={'/gcode-pipe'} element={<Nav><GcodePipe/></Nav>} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ChakraProvider>
   )
 }
