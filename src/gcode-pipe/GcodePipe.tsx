@@ -1,19 +1,20 @@
 import { PageLayout } from '../components/layout';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { generator } from './generator';
 import {
-  Box, Button,
-  FormControl, FormErrorMessage,
+  Box,
+  Button,
+  FormControl,
   FormHelperText,
   FormLabel,
   Grid,
   GridItem,
   Input,
-  InputGroup, Spacer,
-  Stack, Switch,
-  Textarea
+  Spacer,
+  Stack,
+  Switch
 } from '@chakra-ui/react';
-import React from 'react';
+
 
 
 interface FormProps {
@@ -53,15 +54,24 @@ export const GcodePipe = () => {
 
 
   const oc = (e) => {
-    setFormState((v) => ({
-        ...v,
-        [e.target.name]: e.target.value
-      })
-    )
+    if (e.target.name === 'segments' && parseFloat(e.target.value) > 500) {
+      setFormState((v) => ({
+          ...v,
+          [e.target.name]: 500
+        })
+      )
+    } else {
+
+      setFormState((v) => ({
+          ...v,
+          [e.target.name]: e.target.value
+        })
+      )
+    }
   }
 
   const downloadGcode = () => {
-    const file = new Blob([copyGCode], {type: "text/gcode"});
+    const file = new Blob([copyGCode], {type: 'text/gcode'});
     const e = document.createElement('a');
     e.href = URL.createObjectURL(file);
     e.download = `Pipe-d${formState['diameter']}-seg${formState['segments']}-lay${formState['layers']}.gcode`
@@ -78,7 +88,7 @@ export const GcodePipe = () => {
       <Grid templateColumns={'1fr 1fr'} gap={'10px'}>
         <GridItem>
           <Stack spacing={4}>
-            <FormControl variant="floating">
+            <FormControl variant="floating" mb={4}>
               <Input
                 placeholder={' '}
                 type={'text'}
@@ -87,9 +97,8 @@ export const GcodePipe = () => {
                 value={formState['segments']}
               />
               <FormLabel>Split circle into segments</FormLabel>
-              {/*<FormHelperText>Keep it very short and sweet!</FormHelperText>*/}
+              <FormHelperText>Max 500 segments</FormHelperText>
             </FormControl>
-
 
 
             <FormControl variant="floating">
@@ -128,7 +137,7 @@ export const GcodePipe = () => {
               {/*<FormHelperText>Keep it very short and sweet!</FormHelperText>*/}
             </FormControl>
 
-            <FormControl >
+            <FormControl>
               <Switch
                 onChange={() => setFormState((v) => ({
                   ...v,
@@ -147,7 +156,7 @@ export const GcodePipe = () => {
         </GridItem>
         <GridItem>
 
-          <FormControl >
+          <FormControl>
             <Switch
               onChange={() => setShowRawCode(v => !v)}
               isChecked={showRawCode}>
@@ -168,7 +177,7 @@ export const GcodePipe = () => {
               p={'9px'}
               overflow={'scroll'}>
               {copyGCode.split('\n').map((l, i) => {
-                return <React.Fragment key={i}>{l}<br /></React.Fragment>
+                return <React.Fragment key={i}>{l}<br/></React.Fragment>
               })}
             </Box>}
 

@@ -61,7 +61,12 @@ const randomizeStartPoint = (points: GenPoint[]): GenPoint[] => {
 const gstruct_to_gcode = (gstruct: GStruct[]): string[] => {
   return gstruct.map(({comment = '', command = '', ...rest}) => {
     const r = Object.keys(rest).reduce((acc, curr) => {
-      return `${acc} ${curr}${rest[curr].toFixed(5)}`
+      return `${acc} ${curr}${rest[curr].toFixed(5)
+        .replace(/[.,]00000$/, '')
+        .replace(/0000$/, '')
+        .replace(/000$/, '')
+        .replace(/00$/, '')
+      }`
     }, '')
     return `${command}${r} ${comment !== '' ? ';' : ''}${comment}`.trim()
   });
@@ -74,7 +79,13 @@ export const generator = ({
   layerHeight = 1,
   randomizeStart = true,
 }) => {
+  if(diameter === 0 || segments === 0 || layers === 0 || layerHeight === 0) {
+    return []
+  }
 
+  if(segments > 500) {
+    return []
+  }
   const radius = 0.5 * diameter;
 
   //const ang_seg_to_seg = 180 - ang_inner; // For slice: angles are 180 = a + a + ang_inner
