@@ -1,5 +1,5 @@
 import { PageLayout } from '../components/layout';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { generator } from './generator';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   Stack,
   Switch
 } from '@chakra-ui/react';
-
+import { parseGcode, ThreeDLine } from '@holymarcell/three-d-line/dist';
 
 
 interface FormProps {
@@ -27,6 +27,18 @@ interface FormProps {
 
 
 export const GcodePipe = () => {
+
+  const mountRef = useRef<HTMLDivElement>(null);
+
+  const canvasSize = {width: 600, height: 600};
+  const {
+    stats,
+    canvas,
+    startAnimation,
+    addPoints,
+    createBin,
+    renderLine
+  } = ThreeDLine({canvas: canvasSize});
 
   const [formState, setFormState] = useState<FormProps>({
     diameter: '200',
@@ -52,9 +64,40 @@ export const GcodePipe = () => {
 
   }, [formState])
 
+  useEffect(() => {
+    if (mountRef.current) {
+      mountRef.current.replaceChildren(canvas)
+    }
+  }, [copyGCode]);
+
+  useEffect(() => {
+    if (copyGCode) {
+      console.log('going for it')
+      createBin({colorGradient: {from: '#ff0', to: '#00f'}});
+      startAnimation();
+
+      const points = parseGcode(copyGCode.split('\n'));
+      console.log(points.slice(0, 300))
+      addPoints(points);
+      renderLine();
+      setTimeout(renderLine, 1000);
+      setTimeout(renderLine, 2000);
+      setTimeout(renderLine, 4000);
+
+      //addPointsTimeout()
+    }
+
+  }, [copyGCode])
+
 
   const oc = (e) => {
     if (e.target.name === 'segments' && parseFloat(e.target.value) > 500) {
+      setFormState((v) => ({
+          ...v,
+          [e.target.name]: 500
+        })
+      )
+    } else if (e.target.name === 'layers' && parseFloat(e.target.value) > 500) {
       setFormState((v) => ({
           ...v,
           [e.target.name]: 500
@@ -86,6 +129,9 @@ export const GcodePipe = () => {
       <Spacer p={'30px'}/>
 
       <Grid templateColumns={'1fr 1fr'} gap={'10px'}>
+        <GridItem>
+          <div ref={mountRef}></div>
+        </GridItem>
         <GridItem>
           <Stack spacing={4}>
             <FormControl variant="floating" mb={4}>
@@ -182,6 +228,7 @@ export const GcodePipe = () => {
             </Box>}
 
         </GridItem>
+
       </Grid>
     </PageLayout>
   )

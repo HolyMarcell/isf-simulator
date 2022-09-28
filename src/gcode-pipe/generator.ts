@@ -61,12 +61,7 @@ const randomizeStartPoint = (points: GenPoint[]): GenPoint[] => {
 const gstruct_to_gcode = (gstruct: GStruct[]): string[] => {
   return gstruct.map(({comment = '', command = '', ...rest}) => {
     const r = Object.keys(rest).reduce((acc, curr) => {
-      return `${acc} ${curr}${rest[curr].toFixed(5)
-        .replace(/[.,]00000$/, '')
-        .replace(/0000$/, '')
-        .replace(/000$/, '')
-        .replace(/00$/, '')
-      }`
+      return `${acc} ${curr}${parseFloat(rest[curr].toFixed(5))}`
     }, '')
     return `${command}${r} ${comment !== '' ? ';' : ''}${comment}`.trim()
   });
