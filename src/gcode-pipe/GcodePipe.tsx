@@ -129,9 +129,7 @@ export const GcodePipe = () => {
       <Spacer p={'30px'}/>
 
       <Grid templateColumns={'1fr 1fr'} gap={'10px'}>
-        <GridItem>
-          <div ref={mountRef}></div>
-        </GridItem>
+
         <GridItem>
           <Stack spacing={4}>
             <FormControl variant="floating" mb={4}>
@@ -227,6 +225,9 @@ export const GcodePipe = () => {
               })}
             </Box>}
 
+        </GridItem>
+        <GridItem>
+          <div ref={mountRef}></div>
         </GridItem>
 
       </Grid>
